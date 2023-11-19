@@ -5,6 +5,7 @@
     <title>Max Weight</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="assets/styles.css">
     <script src="https://unpkg.com/htmx.org@1.9.8"
         integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
         crossorigin="anonymous"></script>
@@ -14,11 +15,11 @@
     <ul id="movement-list">
         {{ range .MovementData }}
         {{ block "movement" .}}
-        <li>
+        <li class="movement-item">
             {{ .Movement }}
             {{ .MaxWeight }}
             {{ .TargetMuscle }}
-            <button type="button">Remove</button>
+            <button type="button" hx-delete="remove-movement" hx-target="closest li" hx-swap="outerHTML">Remove</button>
         </li>
         {{ end }}
         {{ end }}

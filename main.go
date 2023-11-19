@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -23,6 +24,8 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("index.html"))
+		http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+
 		tmpl.Execute(w, exampleMvData)
 		// tmpl.ExecuteTemplate()
 	})
@@ -40,6 +43,10 @@ func main() {
 			MaxWeight:    mvmtWeight,
 			TargetMuscle: mvmtTarget,
 		})
+	})
+
+	http.HandleFunc("/remove-movement", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("YOU RELALY WANT THIS?!?")
 	})
 
 	log.Fatal(http.ListenAndServe(":6969", nil))
