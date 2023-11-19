@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Max Weight</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/htmx.org@1.9.8"
+        integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <ul id="movement-list">
+        {{ range .MovementData }}
+        {{ block "movement" .}}
+        <li>
+            {{ .Movement }}
+            {{ .MaxWeight }}
+            {{ .TargetMuscle }}
+            <button type="button">Remove</button>
+        </li>
+        {{ end }}
+        {{ end }}
+    </ul>
+
+    <form hx-post="/add-movement" hx-target="#movement-list" hx-swap="beforeend">
+        <label for="movement-name">Name of the movement:</label>
+        <input type="text" name="movement-name" value=""><br>
+
+        <label for="movement-weight">Your current PR:</label>
+        <input type="text" name="movement-weight" value=""><br>
+
+        <label for="movement-target">What muscle it targets:</label>
+        <input type="text" name="movement-target" value=""><br>
+
+        <input type="submit" name="add" value="Add">
+    </form>
+</body>
+
+</html>
